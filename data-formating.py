@@ -24,6 +24,7 @@ def data_extract():
         #     shutil.rmtree(data_path)
         if i.endswith(".zip"):
             patoolib.extract_archive(i, outdir=os.path.join("./",TEMPD))
+            os.remove(i)
     return ()
 
 
