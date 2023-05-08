@@ -26,6 +26,7 @@ with open(filename, "a", newline="") as csvfile:
                     break
                 else:
                     URL = f"https://www.timeanddate.com/weather/uk/london/historic?month={month}&year={year}"
+
                     # Make a request to the URL
                     response = requests.get(URL)
 
@@ -47,5 +48,4 @@ with open(filename, "a", newline="") as csvfile:
         except:
             print(f"No data found for {month}, {year}")
 
-    
 print("Data saved to CSV file.")
