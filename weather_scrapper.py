@@ -3,6 +3,7 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from datetime import date
+import validators
 
 # Save the data in a CSV file
 filename = os.path.join("Data","weather_data.csv")
@@ -26,25 +27,26 @@ with open(filename, "a", newline="") as csvfile:
                     break
                 else:
                     URL = f"https://www.timeanddate.com/weather/uk/london/historic?month={month}&year={year}"
+                    if not validators.url(URL):
+                        pass
+                    else:
+                        # Make a request to the URL
+                        response = requests.get(URL)
 
-                    # Make a request to the URL
-                    response = requests.get(URL)
+                        # Parse the HTML content using Beautiful Soup
+                        soup = BeautifulSoup(response.content, "html.parser")
 
-                    # Parse the HTML content using Beautiful Soup
-                    soup = BeautifulSoup(response.content, "html.parser")
+                        # Find the table row with class="sep-t"
+                        sep_t = soup.find("tr", class_="sep-t")
 
-                    # Find the table row with class="sep-t"
-                    sep_t = soup.find("tr", class_="sep-t")
+                        # Find the temperature and humidity values
+                        temperature = sep_t.find("td").get_text()
+                        humidity = sep_t.find_all("td")[1].get_text()
 
-                    # Find the temperature and humidity values
-                    temperature = sep_t.find("td").get_text()
-                    humidity = sep_t.find_all("td")[1].get_text()
+                        # Find the pressure value
+                        pressure = sep_t.find_all("td")[2].get_text()
 
-                    # Find the pressure value
-                    pressure = sep_t.find_all("td")[2].get_text()
-
-                    writer.writerow({"Month":month, "Year": year, "Temperature": temperature, "Humidity": humidity, "Pressure": pressure})
-
+                        writer.writerow({"Month":month, "Year": year, "Temperature": temperature, "Humidity": humidity, "Pressure": pressure})
         except:
             print(f"No data found for {month}, {year}")
 
