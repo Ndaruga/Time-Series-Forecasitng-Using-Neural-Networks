@@ -6,3 +6,5 @@ This is a time series forecasting project using Neural Networks. <br>In this pro
 
 <h2>NBeats</h2>
 <p>NBeats is a sophisticated deep-learning model designed specifically for time-series forecasting tasks. It is based on a layered architecture of fully connected neural networks that can handle long-term dependencies and capture nonlinear patterns in the time series. The NBeats model comprises two primary components: the backcast network and the forecasting network. The backcast network takes the previous data and utilizes those values to produce a set of basis functions. The forecast network then makes use of these basis functions to make predictions about the values of the time series in the future. The model is trained using a loss function that minimizes the difference between the predicted and actual values of the time series. The NBeats model is gaining popularity due to its capacity to capture complicated temporal patterns while simultaneously offering interpretable insights into the process of forecasting.</p>
+
+
